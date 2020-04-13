@@ -19,7 +19,7 @@ ifeq ($(HAVE_DGL),true)
 endif
 
 plugins:
-	$(MAKE) all -C plugins/emptyplugin
+	$(MAKE) all -C plugins/FlangerOnsetSyncPlugin
 
 ifneq ($(CROSS_COMPILING),true)
 gen: plugins dpf/utils/lv2_ttl_generator
@@ -41,7 +41,7 @@ install:
 clean:
 	#$(MAKE) clean -C dpf/dgl
 	$(MAKE) clean -C dpf/utils/lv2-ttl-generator
-	$(MAKE) clean -C plugins/Gain
+	$(MAKE) clean -C plugins/FlangerOnsetSyncPlugin
 	rm -rf bin build
 
 #----------------------------------------------------------------
