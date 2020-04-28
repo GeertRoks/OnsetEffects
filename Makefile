@@ -20,6 +20,7 @@ endif
 
 plugins:
 	$(MAKE) all -C plugins/FlangerOnsetSyncPlugin
+	$(MAKE) all -C plugins/autoSweller
 
 ifneq ($(CROSS_COMPILING),true)
 gen: plugins dpf/utils/lv2_ttl_generator

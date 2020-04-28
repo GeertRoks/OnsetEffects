@@ -13,12 +13,17 @@ NAME = autoswellerplugin
 # Files to build
 
 FILES_DSP  = autoswellerPlugin.cpp \
-			 adsr.cpp
+			 adsr.cpp \
+			 aubio_module/src/aubio_module.cpp \
+			 aubio_module/src/aubio_onset.cpp \
+			 aubio_module/src/hopbuffer.cpp
 
 # --------------------------------------------------------------
 # Do some magic
 
 include ../../dpf/Makefile.plugins.mk
+
+BUILD_CXX_FLAGS += -laubio
 
 ifeq ($(WIN32),true)
 LINK_OPTS += -static -static-libgcc -static-libstdc++

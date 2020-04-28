@@ -3,6 +3,7 @@
 
 #include "DistrhoPlugin.hpp"
 #include "adsr.hpp"
+#include "aubio_module/src/aubio_onset.hpp"
 
 
 START_NAMESPACE_DISTRHO
