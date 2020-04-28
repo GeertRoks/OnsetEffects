@@ -38,6 +38,7 @@ endif
 # --------------------------------------------------------------
 install:
 	cp -r bin/*.lv2/ /usr/lib/lv2
+	cp -r bin/*.so /usr/lib/vst
 clean:
 	#$(MAKE) clean -C dpf/dgl
 	$(MAKE) clean -C dpf/utils/lv2-ttl-generator

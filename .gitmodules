@@ -1,3 +1,6 @@
 [submodule "DPF"]
 	path = dpf
 	url = git@github.com:DISTRHO/DPF.git
+[submodule "plugins/FlangerOnsetSyncPlugin/flanger"]
+	path = plugins/FlangerOnsetSyncPlugin/flanger
+	url = git@gitlab.hku.nl:csd-netwerk/dsp-classes/flanger.git

@@ -12,7 +12,10 @@ class FlangerOnsetSyncPlugin : public Plugin
 	public:
 		enum Parameters
 		{
-            paramDelay,
+            paramRate,
+            paramDepth,
+            paramFeedback,
+            paramPredelay,
 			paramCount
 		};
 
