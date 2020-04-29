@@ -7,6 +7,10 @@ START_NAMESPACE_DISTRHO
 RandomDelayPlugin::RandomDelayPlugin()
 	: Plugin(paramCount, 1, 0) // 1 program, 0 states
 {
+    samplerate = getSampleRate();
+
+    delay.setSamplerate(samplerate);
+
 	// set default values
 	loadProgram(0);
 
@@ -87,6 +91,8 @@ void RandomDelayPlugin::run(const float** inputs, float** outputs, uint32_t fram
 {
 	const float* input  = inputs[0];
 	float*       output = outputs[0];
+
+    delay.process(input,output,frames);
 }
 
 

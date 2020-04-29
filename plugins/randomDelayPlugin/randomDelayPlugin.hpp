@@ -2,6 +2,7 @@
 #define DISTRHO_PLUGIN_SLPLUGIN_HPP_INCLUDED
 
 #include "DistrhoPlugin.hpp"
+#include "simpledelay.hpp"
 
 
 START_NAMESPACE_DISTRHO
@@ -78,6 +79,10 @@ class RandomDelayPlugin : public Plugin
 	private:
 		int bIndex = 0;
 		double pSignal = 0.0;
+
+        int samplerate;
+
+        SimpleDelay delay;
 
 		void reset();
 

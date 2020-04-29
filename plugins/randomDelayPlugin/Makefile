@@ -12,7 +12,8 @@ NAME = randomDelayPlugin
 # --------------------------------------------------------------
 # Files to build
 
-FILES_DSP  = randomDelayPlugin.cpp
+FILES_DSP  = randomDelayPlugin.cpp \
+			 simpledelay.cpp
 
 # --------------------------------------------------------------
 # Do some magic
