@@ -19,7 +19,7 @@ ifeq ($(HAVE_DGL),true)
 endif
 
 plugins:
-	$(MAKE) all -C plugins/FlangerOnsetSyncPlugin
+#	$(MAKE) all -C plugins/FlangerOnsetSyncPlugin
 	$(MAKE) all -C plugins/autoSweller
 
 ifneq ($(CROSS_COMPILING),true)

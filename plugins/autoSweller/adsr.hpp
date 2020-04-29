@@ -23,19 +23,24 @@
 #ifndef ADRS_h
 #define ADRS_h
 
+#include <cmath>
 
 class ADSR {
 public:
 	ADSR(void);
 	~ADSR(void);
 	double process(void);
+    double process_tanh(void);
     double getOutput(void);
+    double getOutput_tanh(void);
     int getState(void);
 	void gate(int on);
     void setAttackRate(double rate);
     void setDecayRate(double rate);
     void setReleaseRate(double rate);
 	void setSustainLevel(double level);
+    double getAttackRate() const;
+    double getReleaseRate() const;
     void setTargetRatioA(double targetRatio);
     void setTargetRatioDR(double targetRatio);
     void reset(void);
@@ -63,8 +68,10 @@ protected:
     double attackBase;
     double decayBase;
     double releaseBase;
- 
+
     double calcCoef(double rate, double targetRatio);
+
+    double steepness = 2.0f;
 };
 
 inline double ADSR::process() {
@@ -97,6 +104,10 @@ inline double ADSR::process() {
 	return output;
 }
 
+inline double ADSR::process_tanh() {
+    return (tanh((steepness * M_PI * process()) - steepness * 0.5f * M_PI) * 0.5f) + 0.5f;
+}
+
 inline void ADSR::gate(int gate) {
 	if (gate)
 		state = env_attack;
@@ -115,6 +126,10 @@ inline void ADSR::reset() {
 
 inline double ADSR::getOutput() {
 	return output;
+}
+
+inline double ADSR::getOutput_tanh() {
+    return (tanh((steepness * M_PI * output) - steepness * 0.5f * M_PI) * 0.5f) + 0.5f;
 }
 
 #endif

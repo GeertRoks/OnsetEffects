@@ -13,6 +13,8 @@ class AutoSwellPlugin : public Plugin
 	public:
 		enum Parameters
 		{
+            param_attack,
+            param_release,
 			paramCount
 		};
 
@@ -80,7 +82,11 @@ class AutoSwellPlugin : public Plugin
 	private:
 		int bIndex = 0;
 		double pSignal = 0.0;
+
+        int samplerate;
+
         ADSR adsr;
+        AubioOnset onset_detector;
 
 		void reset();
 

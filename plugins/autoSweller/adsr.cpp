@@ -42,6 +42,9 @@ void ADSR::setAttackRate(double rate) {
     attackCoef = calcCoef(rate, targetRatioA);
     attackBase = (1.0 + targetRatioA) * (1.0 - attackCoef);
 }
+double ADSR::getAttackRate() const {
+    return attackRate;
+}
 
 void ADSR::setDecayRate(double rate) {
     decayRate = rate;
@@ -53,6 +56,9 @@ void ADSR::setReleaseRate(double rate) {
     releaseRate = rate;
     releaseCoef = calcCoef(rate, targetRatioDR);
     releaseBase = -targetRatioDR * (1.0 - releaseCoef);
+}
+double ADSR::getReleaseRate() const {
+    return releaseRate;
 }
 
 double ADSR::calcCoef(double rate, double targetRatio) {
