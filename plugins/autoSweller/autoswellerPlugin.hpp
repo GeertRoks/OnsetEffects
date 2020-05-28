@@ -13,8 +13,9 @@ class AutoSwellPlugin : public Plugin
 	public:
 		enum Parameters
 		{
-            param_attack,
-            param_release,
+            paramAttack,
+            paramRelease,
+            paramPreFx,
 			paramCount
 		};
 
@@ -84,6 +85,9 @@ class AutoSwellPlugin : public Plugin
 		double pSignal = 0.0;
 
         int samplerate;
+        bool noRelease = false;
+        float adsrPreFx = 1.0f;
+        float releaseRate = 0.8f;
 
         ADSR adsr;
         AubioOnset onset_detector;

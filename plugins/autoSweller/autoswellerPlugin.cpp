@@ -47,19 +47,27 @@ void AutoSwellPlugin::initParameter(uint32_t index, Parameter& parameter)
 
 	switch (index)
 	{
-        case param_attack:
+        case paramAttack:
             parameter.name          = "Attack";
             parameter.symbol        = "attack";
             parameter.ranges.def    = 2.0f;
             parameter.ranges.min    = 0.1f;
             parameter.ranges.max    = 5.0f;
             break;
-        case param_release:
+        case paramRelease:
             parameter.name          = "Release";
             parameter.symbol        = "release";
             parameter.ranges.def    = 0.8f;
             parameter.ranges.min    = 0.1f;
-            parameter.ranges.max    = 4.0f;
+            parameter.ranges.max    = 5.1f;
+            break;
+        case paramPreFx:
+//            parameter.hints         = kParameterIsAutomable | kParameterIsBoolean;
+            parameter.name          = "PreFx";
+            parameter.symbol        = "prefx";
+            parameter.ranges.def    = 1.0f;
+            parameter.ranges.min    = 0.0f;
+            parameter.ranges.max    = 1.0f;
             break;
 	}
 }
@@ -79,10 +87,12 @@ float AutoSwellPlugin::getParameterValue(uint32_t index) const
 {
 	switch (index)
 	{
-        case param_attack:
+        case paramAttack:
             return adsr.getAttackRate() / samplerate;
-        case param_release:
+        case paramRelease:
             return adsr.getReleaseRate() / samplerate;
+        case paramPreFx:
+            return this->adsrPreFx;
 	}
 }
 
@@ -90,11 +100,20 @@ void AutoSwellPlugin::setParameterValue(uint32_t index, float value)
 {
 	switch (index)
 	{
-        case param_attack:
+        case paramAttack:
             adsr.setAttackRate(value * samplerate);
             break;
-        case param_release:
+        case paramRelease:
             adsr.setReleaseRate(value * samplerate);
+            if (value >= 5.0f) {
+                noRelease = true;
+            } else {
+                noRelease = false;
+            }
+            releaseRate = value;
+            break;
+        case paramPreFx:
+            adsrPreFx = value;
             break;
 	}
 }
@@ -130,15 +149,25 @@ void AutoSwellPlugin::run(const float** inputs, float** outputs, uint32_t frames
 
     float is_onset = onset_detector.process(input);
     if (is_onset) {
+        if (noRelease) {
+            adsr.setReleaseRate(0.01f * samplerate);
+            adsr.gate(false);
+        }
         adsr.gate(true);
+        adsr.setReleaseRate(releaseRate * samplerate);
     }
 
     for(int i = 0; i < frames; i++) {
-        if (adsr.getState() == ADSR::env_decay || adsr.getState() == ADSR::env_sustain) {
+        if ((adsr.getState() == ADSR::env_decay || adsr.getState() == ADSR::env_sustain) && noRelease == false) {
             adsr.gate(false);
         }
-        send[i] = adsr.process_tanh() * input[i];
-        output[i] = (input[i] + retrn[i]) * 0.5;
+        if (adsrPreFx >= 0.5f) {
+            send[i] = adsr.process_tanh() * input[i];
+            output[i] = (input[i] + retrn[i]) * 0.5;
+        } else {
+            send[i] = input[i];
+            output[i] = (input[i] + (retrn[i] * adsr.process_tanh())) * 0.5;
+        }
     }
 }
 
