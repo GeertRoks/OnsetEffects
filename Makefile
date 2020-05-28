@@ -20,6 +20,7 @@ endif
 
 plugins:
 #	$(MAKE) all -C plugins/FlangerOnsetSyncPlugin
+	$(MAKE) all -C plugins/randomDelayPlugin
 	$(MAKE) all -C plugins/autoSweller
 
 ifneq ($(CROSS_COMPILING),true)
@@ -43,7 +44,8 @@ install:
 clean:
 	#$(MAKE) clean -C dpf/dgl
 	$(MAKE) clean -C dpf/utils/lv2-ttl-generator
-	$(MAKE) clean -C plugins/FlangerOnsetSyncPlugin
+#	$(MAKE) clean -C plugins/FlangerOnsetSyncPlugin
+	$(MAKE) clean -C plugins/randomDelayPlugin
 	rm -rf bin build
 
 #----------------------------------------------------------------

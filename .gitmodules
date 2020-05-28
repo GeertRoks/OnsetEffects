@@ -4,6 +4,9 @@
 [submodule "plugins/FlangerOnsetSyncPlugin/flanger"]
 	path = plugins/FlangerOnsetSyncPlugin/flanger
 	url = git@gitlab.hku.nl:csd-netwerk/dsp-classes/flanger.git
+[submodule "randomdelay/aubio_module"]
+	path = plugins/randomDelayPlugin/aubio_module
+  url = https://gitlab.hku.nl/csd-netwerk/aubio_module.git
 [submodule "aubio_module"]
 	path = plugins/autoSweller/aubio_module
 	url = https://gitlab.hku.nl/csd-netwerk/aubio_module.git
