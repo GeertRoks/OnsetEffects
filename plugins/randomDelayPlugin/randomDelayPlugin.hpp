@@ -1,8 +1,10 @@
 #ifndef DISTRHO_PLUGIN_SLPLUGIN_HPP_INCLUDED
 #define DISTRHO_PLUGIN_SLPLUGIN_HPP_INCLUDED
 
+#include <random>
 #include "DistrhoPlugin.hpp"
 #include "simpledelay.hpp"
+#include "aubio_module/src/aubio_onset.hpp"
 
 
 START_NAMESPACE_DISTRHO
@@ -12,6 +14,9 @@ class RandomDelayPlugin : public Plugin
 	public:
 		enum Parameters
 		{
+            paramBpm,
+            paramMin,
+            paramMax,
 			paramCount
 		};
 
@@ -80,9 +85,20 @@ class RandomDelayPlugin : public Plugin
 		int bIndex = 0;
 		double pSignal = 0.0;
 
+        int noteMin = 1;
+        int noteMax = 6;
+
         int samplerate;
 
         SimpleDelay delay;
+        AubioOnset onset_detector;
+
+        // Setup Random Number Generator (RNG) for random delay times
+        std::random_device rand_dev;
+        std::mt19937 rng;
+        std::uniform_int_distribution<int> range;
+
+        int bpm = 120;
 
 		void reset();
 

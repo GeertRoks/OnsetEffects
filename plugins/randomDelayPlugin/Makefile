@@ -13,7 +13,10 @@ NAME = randomDelayPlugin
 # Files to build
 
 FILES_DSP  = randomDelayPlugin.cpp \
-			 simpledelay.cpp
+			 simpledelay.cpp \
+			 aubio_module/src/aubio_module.cpp \
+			 aubio_module/src/aubio_onset.cpp \
+			 aubio_module/src/hopbuffer.cpp
 
 # --------------------------------------------------------------
 # Do some magic
